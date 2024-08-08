@@ -13,15 +13,21 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="flex items-center space-x-4">
+    <form
+      onSubmit={handleSearch}
+      className="flex items-center h-[30%] w-[60%] mb-4"
+    >
       <input
         type="text"
         value={query}
         onChange={handleChange}
+        className="w-[100%] h-[3rem] bg-white bg-opacity-60 text-orange-800 px-4 rounded-xl"
         placeholder="Search for recipes..."
-        className="p-2 border rounded-lg flex-1"
       />
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded-lg">
+      <button
+        type="submit"
+        className="bg-amber-500 w-[30%] text-white ml-2 p-2 text-lg rounded-lg"
+      >
         Search
       </button>
     </form>

@@ -4,13 +4,15 @@ import HomePage from './pages/HomePage';
 // import HomePage from './pages/HomePage';
 import RecipePage from './pages/RecipePage';
 import Loading from './pages/Loading';
+import Login from './pages/Login';
 
 const App = () => {
   return (
     <Router>
-      <div className="container mx-auto p-4">
+      <div className="w-[100vw] h-[100vh]">
         <Routes>
-          <Route path="/" Component={HomePage} />
+          <Route path="/" Component={Login} />
+          <Route path="/home" Component={HomePage} />
           <Route path="/loading" Component={Loading} />
           <Route path="/recipe/:id" Component={RecipePage} />
         </Routes>
