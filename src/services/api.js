@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiKey } from '../../apiKey';
+import { apiKey } from '../apiKey';
 
 const API_KEY = `${apiKey}`;
 const BASE_URL = 'https://api.spoonacular.com/recipes';
