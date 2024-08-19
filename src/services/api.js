@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { apiKey } from '../apiKey';
 
-const API_KEY = `${apiKey}`;
-const BASE_URL = 'https://api.spoonacular.com/recipes';
+const API_KEY = process.env.REACT_APP_API_KEY;
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 export const fetchRecipes = async (query) => {
   const response = await axios.get(`${BASE_URL}/complexSearch`, {

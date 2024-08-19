@@ -3,6 +3,7 @@ import RecipeBG from './../img/bgTable2.png';
 import parse from 'html-react-parser';
 import CheckIcon from '@mui/icons-material/Check';
 import DoNotDisturbIcon from '@mui/icons-material/DoNotDisturb';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const RecipeDetail = ({ recipe }) => {
   const [ingredients, setIngredients] = useState([]);
@@ -67,6 +68,10 @@ const RecipeDetail = ({ recipe }) => {
     return <p>Loading ...</p>;
   }
 
+  const handleClick = () => {
+    window.history.back();
+  };
+
   return (
     <div
       className="flex flex-col h-full w-full bg-cover bg-center px-4 items-center justify-center text-justify"
@@ -74,6 +79,13 @@ const RecipeDetail = ({ recipe }) => {
     >
       <div className=" h-[80%] w-[60%] bg-gray-600 rounded-xl bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-60 border border-gray-100  items-center text-white  py-4 px-10 overflow-y-scroll flex flex-col">
         <div className="text-center flex flex-col">
+          <button
+            className="absolute flex left-5 items-center justify-center"
+            onClick={() => handleClick()}
+          >
+            <ArrowBackIcon />
+            Go Back
+          </button>
           <h1 className="text-3xl font-bold m-4 underline">{recipe.title}</h1>
           <img
             src={recipe.image}

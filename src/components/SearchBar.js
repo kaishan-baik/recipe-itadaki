@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState('');
+
+  useEffect(() => {
+    setQuery('');
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -10,6 +14,10 @@ const SearchBar = ({ onSearch }) => {
 
   const handleChange = (e) => {
     setQuery(e.target.value);
+  };
+
+  const handleClear = (e) => {
+    setQuery('');
   };
 
   return (
@@ -21,7 +29,7 @@ const SearchBar = ({ onSearch }) => {
         type="text"
         value={query}
         onChange={handleChange}
-        className="w-[100%] h-[3rem] bg-white bg-opacity-60 text-orange-800 px-4 rounded-xl"
+        className="w-[100%] h-[3rem] bg-white bg-opacity-60 text-orange-800 px-4 rounded-xl placeholder:text-orange-800"
         placeholder="Search for recipes..."
       />
       <button
@@ -30,6 +38,16 @@ const SearchBar = ({ onSearch }) => {
       >
         Search
       </button>
+      {query ? (
+        <button
+          onClick={() => handleClear()}
+          className="bg-amber-800 w-[30%] text-white ml-2 p-2 text-lg rounded-lg"
+        >
+          Clear
+        </button>
+      ) : (
+        <></>
+      )}
     </form>
   );
 };

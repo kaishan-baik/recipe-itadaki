@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SearchBar from '../components/SearchBar';
 import RecipeList from '../components/RecipeList';
 import { fetchRecipes } from '../services/api';
 // import { mockData } from '../data/mockData';
 import bgDark from './../img/bgHome.png';
 import { Alert, Stack } from '@mui/material';
+import Loader from '../components/Loader';
 
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
@@ -13,42 +14,44 @@ const HomePage = () => {
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('');
 
-  const handleSearch = async (query) => {
-    const data = await fetchRecipes(query);
-    console.log('recipes found >>', data);
-    setRecipes(data);
+  const [loaderVisible, setLoaderVisible] = useState(false);
+
+  useEffect(() => {
+    onReset();
+  }, []);
+
+  const onReset = () => {
+    setRecipes([]);
+    setAlertVisible(false);
+    setAlertMessage('');
+    setAlertType('');
+    setLoaderVisible(false);
   };
 
-  // const handleSearch = (query) => {
-  //   // const filteredRecipes = mockData.filter((recipe) => {
-  //   //   recipe.title.toLowerCase().includes(query.toLowerCase());
-  //   // });
-  //   console.log('query >>', query);
-  //   const filteredRecipes = mockData.filter(
-  //     (recipe) => recipe.id === parseInt(query)
-  //   );
-  //   if (filteredRecipes.length > 0) {
-  //     setRecipes(filteredRecipes);
+  const handleSearch = async (query) => {
+    setLoaderVisible(true);
+    if (query) {
+      const data = await fetchRecipes(query);
 
-  //     setAlertType('success');
+      if (data.length > 0) {
+        setRecipes(data);
 
-  //     setAlertMessage(`Found recipes related to ${query}`);
-
-  //     setAlertVisible(true);
-
-  //     console.log('alert');
-  //   } else {
-  //     setRecipes([]);
-
-  //     setAlertType('error');
-
-  //     setAlertMessage('No recipes found!');
-
-  //     setAlertVisible(true);
-  //   }
-
-  //   setTimeout(() => setAlertVisible(false), 3000);
-  // };
+        setAlertType('success');
+        setAlertMessage(`Found recipes related to ${query}`);
+        setAlertVisible(true);
+        setTimeout(() => setAlertVisible(false), 3000);
+      } else {
+        setAlertType('error');
+        setAlertMessage('No recipes found!');
+        setAlertVisible(true);
+        setTimeout(() => setAlertVisible(false), 3000);
+        setRecipes([]);
+      }
+    } else {
+      setRecipes([]);
+    }
+    setLoaderVisible(false);
+  };
 
   return (
     <div
@@ -69,9 +72,12 @@ const HomePage = () => {
           <h1 className="text-3xl font-bold m-4 mt-[4rem] text-white">
             Recipe Itadaki
           </h1>
-          <p className="text-black">- Comfort food for the soul -</p>
+          <p className="text-yellow-200 font-semibold">
+            - Comfort food for the soul -
+          </p>
         </div>
         <SearchBar onSearch={handleSearch} />
+        {loaderVisible ? <Loader /> : <></>}
         <RecipeList recipes={recipes} />
       </div>
     </div>
