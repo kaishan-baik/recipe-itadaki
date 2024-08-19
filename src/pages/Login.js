@@ -3,6 +3,7 @@ import bgDark from '../img/bgDark.jpg';
 import LogoWhite from '../img/logo-2.png';
 
 import { Alert, Stack } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -13,6 +14,7 @@ const Login = () => {
   const [alertVisible, setAlertVisible] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
   const [alertType, setAlertType] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     setUsername('');
@@ -98,8 +100,8 @@ const Login = () => {
     }
   };
 
-  const goToHomepage = () => {
-    window.location.href = '/home';
+  const handleLogin = () => {
+    navigate('/home');
   };
 
   return (
@@ -169,7 +171,7 @@ const Login = () => {
               </div>
               <button
                 className="mt-2 font-bold text-emerald-500 text-lg hover:bg-emerald-600 hover:text-white  duration-300 w-[50%] rounded"
-                onClick={() => goToHomepage()}
+                onClick={() => handleLogin()}
               >
                 Continue as guest here!
               </button>
@@ -238,7 +240,7 @@ const Login = () => {
               </div>
               <button
                 className="mt-2 font-bold text-emerald-500 text-lg hover:bg-emerald-600 hover:text-white  duration-300 w-[50%] rounded"
-                onClick={() => goToHomepage()}
+                onClick={() => handleLogin()}
               >
                 Continue as guest here!
               </button>
